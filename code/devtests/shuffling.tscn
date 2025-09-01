@@ -1,0 +1,136 @@
+[gd_scene load_steps=8 format=3 uid="uid://dx2l24l0dcd8w"]
+
+[ext_resource type="Script" uid="uid://buq704nius0fx" path="res://code/stack.gd" id="1_w1hms"]
+[ext_resource type="Script" uid="uid://ij4aymy2ncnl" path="res://code/card.gd" id="2_d5grq"]
+[ext_resource type="Script" uid="uid://l8uedc1a8ap0" path="res://code/table.gd" id="3_70htb"]
+[ext_resource type="FontFile" uid="uid://b3h1426l7b0kq" path="res://assets/yoster.ttf" id="4_d5grq"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w1hms"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_d5grq"]
+sky_material = SubResource("ProceduralSkyMaterial_w1hms")
+
+[sub_resource type="Environment" id="Environment_70htb"]
+background_mode = 2
+sky = SubResource("Sky_d5grq")
+tonemap_mode = 2
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Stack" type="StaticBody3D" parent="." node_paths=PackedStringArray("cards")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+script = ExtResource("1_w1hms")
+cards = [NodePath("../cards/Card"), NodePath("../cards/Card2"), NodePath("../cards/Card3"), NodePath("../cards/Card4"), NodePath("../cards/Card5"), NodePath("../cards/Card6"), NodePath("../cards/Card7"), NodePath("../cards/Card8")]
+moveable_cards = 1
+metadata/_custom_type_script = "uid://buq704nius0fx"
+
+[node name="cards" type="Node3D" parent="."]
+
+[node name="Card" type="StaticBody3D" parent="cards"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 2, 0.008, 0)
+script = ExtResource("2_d5grq")
+CardText = "Card 1"
+TextStyle = 0
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card2" type="StaticBody3D" parent="cards"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 2, 0.016, 0)
+script = ExtResource("2_d5grq")
+CardText = "Card 2"
+TextStyle = 0
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card3" type="StaticBody3D" parent="cards"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 2, 0.024, 0)
+script = ExtResource("2_d5grq")
+CardText = "Card 3"
+TextStyle = 0
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card4" type="StaticBody3D" parent="cards"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 2, 0.032, 0)
+script = ExtResource("2_d5grq")
+CardText = "Card 4"
+TextStyle = 0
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card5" type="StaticBody3D" parent="cards"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 2, 0.04, 0)
+script = ExtResource("2_d5grq")
+CardText = "Card 5"
+TextStyle = 0
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card6" type="StaticBody3D" parent="cards"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 2, 0.048, 0)
+script = ExtResource("2_d5grq")
+CardText = "Card 6"
+TextStyle = 0
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card7" type="StaticBody3D" parent="cards"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 2, 0.056, 0)
+script = ExtResource("2_d5grq")
+CardText = "Card 7"
+TextStyle = 0
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card8" type="StaticBody3D" parent="cards"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 2, 0.064, 0)
+script = ExtResource("2_d5grq")
+CardText = "Card 8"
+TextStyle = 0
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Stack2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+script = ExtResource("1_w1hms")
+moveable_cards = 1
+metadata/_custom_type_script = "uid://buq704nius0fx"
+
+[node name="world" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="world"]
+environment = SubResource("Environment_70htb")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="world"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Table" type="StaticBody3D" parent="world"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.508, 0)
+script = ExtResource("3_70htb")
+metadata/_custom_type_script = "uid://l8uedc1a8ap0"
+
+[node name="Camera3D" type="Camera3D" parent="world"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 4, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("4_d5grq")
+theme_override_font_sizes/font_size = 50
+text = "  Shuffle  "
+
+[connection signal="pressed" from="CanvasLayer/Control/Button" to="Stack" method="shuffle"]
