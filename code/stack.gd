@@ -8,6 +8,7 @@ const CARD = preload("res://assets/card.obj")
 @export var cards: Array[Card] = []
 @export var offset: Vector3 = Vector3(0, 0.01, 0)
 @export_enum("None", "Top Only", "Face Up", "All") var moveable_cards = 0
+@export var allow_carried_cards: bool
 @export_tool_button("Generate") var generate_new_table = gen
 var high_card_in_stack: Vector3
 
@@ -40,8 +41,6 @@ func gen():
 	var ray = RayCast3D.new()
 	add_child(ray)
 	ray.target_position = Vector3(0,-10,0)
-	
-	print(ray.target_position)
 
 
 func _on_input_event(camera, event, event_position, normal, shape_idx):
@@ -52,19 +51,39 @@ func _on_input_event(camera, event, event_position, normal, shape_idx):
 		Settings.PlayerHeldCard.global_position.y = high_card_in_stack.y + offset.y
 		
 	elif event.button_index == MOUSE_BUTTON_LEFT and event.pressed and is_valid_card():
-		Settings.PlayerHeldCard.global_position = high_card_in_stack + offset
-		if Settings.PlayerHeldCard.is_in_stack != null:
-			Settings.PlayerHeldCard.is_in_stack.cards.erase(Settings.PlayerHeldCard)
-			Settings.PlayerHeldCard.is_in_stack.resolve_moveable_cards()
-		Settings.PlayerHeldCard.is_in_stack = self
-		cards.append(Settings.PlayerHeldCard)
-		resolve_moveable_cards()
+		var cards_to_move = [Settings.PlayerHeldCard]
+		if allow_carried_cards:
+			for c in Settings.CarriedCards:
+				cards_to_move.append(c)
+			
+		elif Settings.CarriedCards.size() > 0:
+			Settings.PlayerHeldCard.global_position = Settings.PlayerHeldCard.start_position
+			Settings.PlayerHeldCard.input_ray_pickable = true
+			Settings.PlayerHeldCard = null
+			return
+		for n in cards_to_move:
+			n.global_position = high_card_in_stack + offset
+			if n.is_in_stack != null:
+				n.is_in_stack.cards.erase(n)
+				n.is_in_stack.resolve_moveable_cards()
+			n.is_in_stack = self
+			cards.append(n)
+			resolve_moveable_cards()
+			n.input_ray_pickable = true
+		Settings.PlayerHeldCard = null
+		Settings.CarriedCards = []
+	elif event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		Settings.PlayerHeldCard.global_position = Settings.PlayerHeldCard.start_position
 		Settings.PlayerHeldCard.input_ray_pickable = true
 		Settings.PlayerHeldCard = null
+		Settings.CarriedCards = []
 
 func shuffle():
 	for n:int in 8:
 		cards.shuffle()
+	for c in cards:
+		c.Flipped = true
+		c.gen()
 	resolve_moveable_cards()
 
 func resolve_moveable_cards():
@@ -88,7 +107,12 @@ func resolve_moveable_cards():
 		n.global_position = high_card_in_stack + offset
 		n.is_in_stack = self
 		high_card_in_stack += offset
+	
+	resolve_valid_cards()
 
 
 func is_valid_card() -> bool:
 	return true
+
+func resolve_valid_cards():
+	pass

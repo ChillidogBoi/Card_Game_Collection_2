@@ -23,7 +23,9 @@ tonemap_mode = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
 script = ExtResource("1_w1hms")
 cards = [NodePath("../cards/Card"), NodePath("../cards/Card2"), NodePath("../cards/Card3"), NodePath("../cards/Card4"), NodePath("../cards/Card5"), NodePath("../cards/Card6"), NodePath("../cards/Card7"), NodePath("../cards/Card8")]
+offset = null
 moveable_cards = 1
+allow_carried_cards = null
 metadata/_custom_type_script = "uid://buq704nius0fx"
 
 [node name="cards" type="Node3D" parent="."]
@@ -33,6 +35,9 @@ transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 2, 0.0
 script = ExtResource("2_d5grq")
 CardText = "Card 1"
 TextStyle = 0
+Flipped = null
+Suit = null
+Value = null
 metadata/_custom_type_script = "uid://ij4aymy2ncnl"
 
 [node name="Card2" type="StaticBody3D" parent="cards"]
@@ -40,6 +45,9 @@ transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 2, 0.0
 script = ExtResource("2_d5grq")
 CardText = "Card 2"
 TextStyle = 0
+Flipped = null
+Suit = null
+Value = null
 metadata/_custom_type_script = "uid://ij4aymy2ncnl"
 
 [node name="Card3" type="StaticBody3D" parent="cards"]
@@ -47,6 +55,9 @@ transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 2, 0.0
 script = ExtResource("2_d5grq")
 CardText = "Card 3"
 TextStyle = 0
+Flipped = null
+Suit = null
+Value = null
 metadata/_custom_type_script = "uid://ij4aymy2ncnl"
 
 [node name="Card4" type="StaticBody3D" parent="cards"]
@@ -54,6 +65,9 @@ transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 2, 0.0
 script = ExtResource("2_d5grq")
 CardText = "Card 4"
 TextStyle = 0
+Flipped = null
+Suit = null
+Value = null
 metadata/_custom_type_script = "uid://ij4aymy2ncnl"
 
 [node name="Card5" type="StaticBody3D" parent="cards"]
@@ -61,6 +75,9 @@ transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 2, 0.0
 script = ExtResource("2_d5grq")
 CardText = "Card 5"
 TextStyle = 0
+Flipped = null
+Suit = null
+Value = null
 metadata/_custom_type_script = "uid://ij4aymy2ncnl"
 
 [node name="Card6" type="StaticBody3D" parent="cards"]
@@ -68,6 +85,9 @@ transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 2, 0.0
 script = ExtResource("2_d5grq")
 CardText = "Card 6"
 TextStyle = 0
+Flipped = null
+Suit = null
+Value = null
 metadata/_custom_type_script = "uid://ij4aymy2ncnl"
 
 [node name="Card7" type="StaticBody3D" parent="cards"]
@@ -75,6 +95,9 @@ transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 2, 0.0
 script = ExtResource("2_d5grq")
 CardText = "Card 7"
 TextStyle = 0
+Flipped = null
+Suit = null
+Value = null
 metadata/_custom_type_script = "uid://ij4aymy2ncnl"
 
 [node name="Card8" type="StaticBody3D" parent="cards"]
@@ -82,12 +105,17 @@ transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 2, 0.0
 script = ExtResource("2_d5grq")
 CardText = "Card 8"
 TextStyle = 0
+Flipped = null
+Suit = null
+Value = null
 metadata/_custom_type_script = "uid://ij4aymy2ncnl"
 
 [node name="Stack2" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
 script = ExtResource("1_w1hms")
+offset = null
 moveable_cards = 1
+allow_carried_cards = null
 metadata/_custom_type_script = "uid://buq704nius0fx"
 
 [node name="world" type="Node3D" parent="."]

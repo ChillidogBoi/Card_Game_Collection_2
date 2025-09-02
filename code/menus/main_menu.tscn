@@ -1,0 +1,136 @@
+[gd_scene load_steps=9 format=3 uid="uid://cjlxa8ihyqoof"]
+
+[ext_resource type="FontFile" uid="uid://b3h1426l7b0kq" path="res://assets/yoster.ttf" id="1_xrmpc"]
+[ext_resource type="Texture2D" uid="uid://co6msop78hyuc" path="res://assets/menu_back.png" id="2_62sac"]
+[ext_resource type="Script" uid="uid://bgo1mfs7kmlpf" path="res://code/menus/play.gd" id="2_k8065"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_62sac"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k8065"]
+bg_color = Color(0, 0.192157, 0.309804, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vpn0g"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fblj2"]
+bg_color = Color(2.40654e-08, 0.192105, 0.310564, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8tw4x"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Main" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Button" type="Button" parent="Main/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_xrmpc")
+theme_override_font_sizes/font_size = 150
+theme_override_styles/focus = SubResource("StyleBoxFlat_62sac")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_k8065")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_k8065")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_vpn0g")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vpn0g")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_fblj2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_fblj2")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_8tw4x")
+theme_override_styles/normal = SubResource("StyleBoxFlat_8tw4x")
+text = "    Play    "
+script = ExtResource("2_k8065")
+
+[node name="Settings" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_62sac")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.392157)
+
+[connection signal="pressed" from="Main/VBoxContainer/Button" to="Main/VBoxContainer/Button" method="_on_pressed"]

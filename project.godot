@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="solitaire"
+run/main_scene="uid://cjlxa8ihyqoof"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -18,7 +19,16 @@ config/icon="res://icon.svg"
 
 Settings="*res://code/settings.gd"
 
+[display]
+
+window/size/viewport_width=1200
+window/size/viewport_height=600
+window/stretch/mode="viewport"
+window/stretch/aspect="keep_width"
+window/stretch/scale=0.5
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true

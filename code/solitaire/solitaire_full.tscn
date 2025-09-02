@@ -1,0 +1,726 @@
+[gd_scene load_steps=15 format=3 uid="uid://ddx05kmg70iti"]
+
+[ext_resource type="Script" uid="uid://l8uedc1a8ap0" path="res://code/table.gd" id="1_bpxla"]
+[ext_resource type="Script" uid="uid://ij4aymy2ncnl" path="res://code/card.gd" id="3_a2tk8"]
+[ext_resource type="Texture2D" uid="uid://b7g0y7jgg4muq" path="res://assets/symbols/french_spade.png" id="4_420dk"]
+[ext_resource type="Script" uid="uid://bv03cchdq6jhd" path="res://code/solitaire/discard.gd" id="4_qkbbm"]
+[ext_resource type="Texture2D" uid="uid://cv37rx3ysofln" path="res://assets/symbols/french_club.png" id="5_oddon"]
+[ext_resource type="Texture2D" uid="uid://cuinb5id2ca81" path="res://assets/symbols/french_heart.png" id="6_8ijst"]
+[ext_resource type="Script" uid="uid://ee8lnrbb6y2x" path="res://code/solitaire/setup.gd" id="6_qkbbm"]
+[ext_resource type="Texture2D" uid="uid://bl0e35xknxyn8" path="res://assets/symbols/french_diamond.png" id="7_w5nvx"]
+[ext_resource type="Script" uid="uid://b41nc66fpodep" path="res://code/solitaire/end_stack.gd" id="8_e0t62"]
+[ext_resource type="Script" uid="uid://yp2eediku5ls" path="res://code/solitaire/deck.gd" id="9_w6j13"]
+[ext_resource type="Script" uid="uid://82onxpbrypra" path="res://code/solitaire/start_stack.gd" id="11_qkbbm"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_p645s"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_d5grq"]
+sky_material = SubResource("ProceduralSkyMaterial_p645s")
+
+[sub_resource type="Environment" id="Environment_ewbgq"]
+background_mode = 2
+sky = SubResource("Sky_d5grq")
+tonemap_mode = 2
+
+[node name="Node3D" type="Node3D"]
+
+[node name="world" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="world"]
+environment = SubResource("Environment_ewbgq")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="world"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Table" type="StaticBody3D" parent="world"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.508, 0)
+script = ExtResource("1_bpxla")
+table_size = Vector3(14, 1, 7)
+table_color = Color(0, 0.234768, 0.108377, 1)
+metadata/_custom_type_script = "uid://l8uedc1a8ap0"
+
+[node name="Camera3D" type="Camera3D" parent="world"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 4, 0)
+
+[node name="stacks" type="Node3D" parent="."]
+
+[node name="end_stack_1" type="StaticBody3D" parent="stacks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -2)
+script = ExtResource("8_e0t62")
+moveable_cards = 1
+allow_carried_cards = null
+metadata/_custom_type_script = "uid://buq704nius0fx"
+
+[node name="end_stack_2" type="StaticBody3D" parent="stacks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -2)
+script = ExtResource("8_e0t62")
+moveable_cards = 1
+allow_carried_cards = null
+metadata/_custom_type_script = "uid://buq704nius0fx"
+
+[node name="end_stack_3" type="StaticBody3D" parent="stacks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
+script = ExtResource("8_e0t62")
+moveable_cards = 1
+allow_carried_cards = null
+metadata/_custom_type_script = "uid://buq704nius0fx"
+
+[node name="end_stack_4" type="StaticBody3D" parent="stacks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -2)
+script = ExtResource("8_e0t62")
+moveable_cards = 1
+allow_carried_cards = null
+metadata/_custom_type_script = "uid://buq704nius0fx"
+
+[node name="deck" type="StaticBody3D" parent="stacks" node_paths=PackedStringArray("discard")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -2)
+script = ExtResource("9_w6j13")
+discard = NodePath("../discard")
+moveable_cards = 1
+allow_carried_cards = null
+metadata/_custom_type_script = "uid://buq704nius0fx"
+
+[node name="discard" type="StaticBody3D" parent="stacks" node_paths=PackedStringArray("deck")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -2)
+script = ExtResource("4_qkbbm")
+deck = NodePath("../deck")
+moveable_cards = 1
+metadata/_custom_type_script = "uid://buq704nius0fx"
+
+[node name="Stack" type="StaticBody3D" parent="stacks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
+script = ExtResource("11_qkbbm")
+offset = Vector3(0, 0.01, 0.2)
+moveable_cards = 2
+allow_carried_cards = null
+metadata/_custom_type_script = "uid://buq704nius0fx"
+
+[node name="Stack2" type="StaticBody3D" parent="stacks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+script = ExtResource("11_qkbbm")
+offset = Vector3(0, 0.01, 0.2)
+moveable_cards = 2
+metadata/_custom_type_script = "uid://buq704nius0fx"
+
+[node name="Stack3" type="StaticBody3D" parent="stacks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+script = ExtResource("11_qkbbm")
+offset = Vector3(0, 0.01, 0.2)
+moveable_cards = 2
+allow_carried_cards = null
+metadata/_custom_type_script = "uid://buq704nius0fx"
+
+[node name="Stack4" type="StaticBody3D" parent="stacks"]
+script = ExtResource("11_qkbbm")
+offset = Vector3(0, 0.01, 0.2)
+moveable_cards = 2
+allow_carried_cards = null
+metadata/_custom_type_script = "uid://buq704nius0fx"
+
+[node name="Stack5" type="StaticBody3D" parent="stacks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+script = ExtResource("11_qkbbm")
+offset = Vector3(0, 0.01, 0.2)
+moveable_cards = 2
+allow_carried_cards = null
+metadata/_custom_type_script = "uid://buq704nius0fx"
+
+[node name="Stack6" type="StaticBody3D" parent="stacks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+script = ExtResource("11_qkbbm")
+offset = Vector3(0, 0.01, 0.2)
+moveable_cards = 2
+allow_carried_cards = null
+metadata/_custom_type_script = "uid://buq704nius0fx"
+
+[node name="Stack7" type="StaticBody3D" parent="stacks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
+script = ExtResource("11_qkbbm")
+offset = Vector3(0, 0.01, 0.2)
+moveable_cards = 2
+allow_carried_cards = null
+metadata/_custom_type_script = "uid://buq704nius0fx"
+
+[node name="Setup" type="Node" parent="." node_paths=PackedStringArray("StartStacks", "Deck")]
+script = ExtResource("6_qkbbm")
+StartStacks = [NodePath("../stacks/Stack"), NodePath("../stacks/Stack2"), NodePath("../stacks/Stack3"), NodePath("../stacks/Stack4"), NodePath("../stacks/Stack5"), NodePath("../stacks/Stack6"), NodePath("../stacks/Stack7")]
+Deck = NodePath("../stacks/deck")
+
+[node name="Card" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "A"
+Flipped = true
+Symbol = ExtResource("4_420dk")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 1
+Suit = 2
+Value = 1
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card2" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "2"
+Flipped = true
+Symbol = ExtResource("4_420dk")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 2
+Lines = 2
+Suit = 2
+Value = 2
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card3" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "3"
+Flipped = true
+Symbol = ExtResource("4_420dk")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 3
+Lines = 3
+Suit = 2
+Value = 3
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card4" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "4"
+Flipped = true
+Symbol = ExtResource("4_420dk")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 4
+Lines = 2
+Suit = 2
+Value = 4
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card5" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "5"
+Flipped = true
+Symbol = ExtResource("4_420dk")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 5
+Lines = 3
+Suit = 2
+Value = 5
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card6" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "6"
+Flipped = true
+Symbol = ExtResource("4_420dk")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 6
+Lines = 3
+Suit = 2
+Value = 6
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card7" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "7"
+Flipped = true
+Symbol = ExtResource("4_420dk")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 7
+Lines = 3
+Suit = 2
+Value = 7
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card8" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "8"
+Flipped = true
+Symbol = ExtResource("4_420dk")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 8
+Lines = 4
+Suit = 2
+Value = 8
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card9" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "9"
+Flipped = true
+Symbol = ExtResource("4_420dk")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 9
+Lines = 5
+Suit = 2
+Value = 9
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card10" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "10"
+Flipped = true
+Symbol = ExtResource("4_420dk")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 10
+Lines = 5
+Suit = 2
+Value = 10
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card11" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "A"
+Flipped = true
+Symbol = ExtResource("5_oddon")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 1
+Suit = 4
+Value = 1
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card12" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "2"
+Flipped = true
+Symbol = ExtResource("5_oddon")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 2
+Lines = 2
+Suit = 4
+Value = 2
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card13" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "3"
+Flipped = true
+Symbol = ExtResource("5_oddon")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 3
+Lines = 3
+Suit = 4
+Value = 3
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card14" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "4"
+Flipped = true
+Symbol = ExtResource("5_oddon")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 4
+Lines = 2
+Suit = 4
+Value = 4
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card15" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "5"
+Flipped = true
+Symbol = ExtResource("5_oddon")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 5
+Lines = 3
+Suit = 4
+Value = 5
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card16" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "6"
+Flipped = true
+Symbol = ExtResource("5_oddon")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 6
+Lines = 3
+Suit = 4
+Value = 6
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card17" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "7"
+Flipped = true
+Symbol = ExtResource("5_oddon")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 7
+Lines = 3
+Suit = 4
+Value = 7
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card18" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "8"
+Flipped = true
+Symbol = ExtResource("5_oddon")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 8
+Lines = 4
+Suit = 4
+Value = 8
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card19" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "9"
+Flipped = true
+Symbol = ExtResource("5_oddon")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 9
+Lines = 5
+Suit = 4
+Value = 9
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card20" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "10"
+Flipped = true
+Symbol = ExtResource("5_oddon")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 10
+Lines = 5
+Suit = 4
+Value = 10
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card21" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "A"
+FontColor = Color(0.886275, 0, 0, 1)
+Flipped = true
+Symbol = ExtResource("6_8ijst")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 1
+Suit = 1
+Value = 1
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card22" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "2"
+FontColor = Color(0.886275, 0, 0, 1)
+Flipped = true
+Symbol = ExtResource("6_8ijst")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 2
+Lines = 2
+Suit = 1
+Value = 2
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card23" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "3"
+FontColor = Color(0.886275, 0, 0, 1)
+Flipped = true
+Symbol = ExtResource("6_8ijst")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 3
+Lines = 3
+Suit = 1
+Value = 3
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card24" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "4"
+FontColor = Color(0.886275, 0, 0, 1)
+Flipped = true
+Symbol = ExtResource("6_8ijst")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 4
+Lines = 2
+Suit = 1
+Value = 4
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card25" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "5"
+FontColor = Color(0.886275, 0, 0, 1)
+Flipped = true
+Symbol = ExtResource("6_8ijst")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 5
+Lines = 3
+Suit = 1
+Value = 5
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card26" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "6"
+FontColor = Color(0.886275, 0, 0, 1)
+Flipped = true
+Symbol = ExtResource("6_8ijst")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 6
+Lines = 3
+Suit = 1
+Value = 6
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card27" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "7"
+FontColor = Color(0.886275, 0, 0, 1)
+Flipped = true
+Symbol = ExtResource("6_8ijst")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 7
+Lines = 3
+Suit = 1
+Value = 7
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card28" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "8"
+FontColor = Color(0.886275, 0, 0, 1)
+Flipped = true
+Symbol = ExtResource("6_8ijst")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 8
+Lines = 4
+Suit = 1
+Value = 8
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card29" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "9"
+FontColor = Color(0.886275, 0, 0, 1)
+Flipped = true
+Symbol = ExtResource("6_8ijst")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 9
+Lines = 5
+Suit = 1
+Value = 9
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card30" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "10"
+FontColor = Color(0.886275, 0, 0, 1)
+Flipped = true
+Symbol = ExtResource("6_8ijst")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 10
+Lines = 5
+Suit = 1
+Value = 10
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card31" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "A"
+FontColor = Color(0.886275, 0, 0, 1)
+Flipped = true
+Symbol = ExtResource("7_w5nvx")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 1
+Suit = 3
+Value = 1
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card32" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "2"
+FontColor = Color(0.886275, 0, 0, 1)
+Flipped = true
+Symbol = ExtResource("7_w5nvx")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 2
+Lines = 2
+Suit = 3
+Value = 2
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card33" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "3"
+FontColor = Color(0.886275, 0, 0, 1)
+Flipped = true
+Symbol = ExtResource("7_w5nvx")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 3
+Lines = 3
+Suit = 3
+Value = 3
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card34" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "4"
+FontColor = Color(0.886275, 0, 0, 1)
+Flipped = true
+Symbol = ExtResource("7_w5nvx")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 4
+Lines = 2
+Suit = 3
+Value = 4
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card35" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "5"
+FontColor = Color(0.886275, 0, 0, 1)
+Flipped = true
+Symbol = ExtResource("7_w5nvx")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 5
+Lines = 3
+Suit = 3
+Value = 5
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card36" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "6"
+FontColor = Color(0.886275, 0, 0, 1)
+Flipped = true
+Symbol = ExtResource("7_w5nvx")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 6
+Lines = 3
+Suit = 3
+Value = 6
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card37" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "7"
+FontColor = Color(0.886275, 0, 0, 1)
+Flipped = true
+Symbol = ExtResource("7_w5nvx")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 7
+Lines = 3
+Suit = 3
+Value = 7
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card38" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "8"
+FontColor = Color(0.886275, 0, 0, 1)
+Flipped = true
+Symbol = ExtResource("7_w5nvx")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 8
+Lines = 4
+Suit = 3
+Value = 8
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card39" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "9"
+FontColor = Color(0.886275, 0, 0, 1)
+Flipped = true
+Symbol = ExtResource("7_w5nvx")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 9
+Lines = 5
+Suit = 3
+Value = 9
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"
+
+[node name="Card40" type="StaticBody3D" parent="Setup"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_a2tk8")
+CardText = "10"
+FontColor = Color(0.886275, 0, 0, 1)
+Flipped = true
+Symbol = ExtResource("7_w5nvx")
+TextSymbolOffset = Vector2(0.06, -0.18)
+Amount = 10
+Lines = 5
+Suit = 3
+Value = 10
+FieldSize = Vector2(0.3, 0.5)
+metadata/_custom_type_script = "uid://ij4aymy2ncnl"

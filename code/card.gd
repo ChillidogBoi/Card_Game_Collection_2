@@ -12,6 +12,7 @@ const YOSTER = preload("res://assets/yoster.ttf")
 @export_enum("Center", "One Corner", "Two Corners", "Four Corners") var TextStyle = 2
 @export var FontColor: Color = Color(0,0,0)
 @export var Moveable: bool = true
+@export var Flipped: bool = false
 @export_tool_button("generate") var create_card = gen
 
 @export_category("Design")
@@ -79,6 +80,9 @@ func gen():
 	parse_symbols_gpt()
 	
 	parse_art()
+	
+	if Flipped: rotation.z = PI
+	else: rotation.z = 0
 
 func parse_text():
 	var text = new_label()
@@ -225,12 +229,18 @@ func _on_input_event(camera, event, event_position, normal, shape_idx):
 				for n:int in 9:
 					rotate_z(deg_to_rad(20))
 					await get_tree().create_timer(0).timeout
+				Flipped = false
 			else:
 				start_position = position
 				Settings.PlayerHeldCard = self
 				input_ray_pickable = false
+				if is_in_stack != null:
+					if is_in_stack.cards.find(self) != is_in_stack.cards.size():
+						Settings.CarriedCards = []
+						for n in range(is_in_stack.cards.find(self) + 1, is_in_stack.cards.size()):
+							Settings.CarriedCards.append(is_in_stack.cards[n])
 				
-		elif event.button_index == MOUSE_BUTTON_LEFT:
+		elif event.button_index == MOUSE_BUTTON_LEFT and Settings.PlayerHeldCard != null:
 			if is_in_stack != null:
 				is_in_stack._on_input_event(camera, event, event_position, normal, shape_idx)
 			else:

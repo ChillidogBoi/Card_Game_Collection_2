@@ -30,6 +30,9 @@ transform = Transform3D(-1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 
 script = ExtResource("1_pf3yh")
 CardText = "Card 1"
 TextStyle = 0
+Flipped = null
+Suit = null
+Value = null
 PixelSize = 0.015
 metadata/_custom_type_script = "uid://ij4aymy2ncnl"
 
@@ -38,6 +41,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 script = ExtResource("1_pf3yh")
 CardText = "Card 2"
 TextStyle = 0
+Flipped = null
+Suit = null
+Value = null
 PixelSize = 0.015
 metadata/_custom_type_script = "uid://ij4aymy2ncnl"
 
@@ -54,5 +60,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
 script = ExtResource("3_wukjo")
 color = Color(0, 0.752941, 1, 0.352941)
 cards = [null]
+offset = null
 moveable_cards = null
+allow_carried_cards = null
 metadata/_custom_type_script = "uid://buq704nius0fx"
